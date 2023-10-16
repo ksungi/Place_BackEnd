@@ -26,6 +26,9 @@ public class SpaceEntity {
 	private String S_Key;
 	
 	@Column(nullable=false)
+	private String userId;
+	
+	@Column(nullable=false)
 	private String spaceName;
 	
 	@Column(nullable=false)

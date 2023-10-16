@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +18,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "T_USER")
+@Table(name = "T_USER", 
+		uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class UserEntity {
 	
 	@Id
@@ -28,16 +30,15 @@ public class UserEntity {
 	@Column(nullable=false)
 	private String userName;
 	
-	@Column(nullable=false, unique = true)
+	@Column(nullable=false)
 	private String phone;
 	
-	@Column(nullable=false, unique = true)
+	@Column(nullable=false)
 	private String email;
 	
 	@Column(nullable=false)
 	private String password;
 	
-	@Column(unique = true)
 	private String companyName;
 	
 	private String companyBossName;

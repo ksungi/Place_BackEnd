@@ -27,9 +27,24 @@ public class ReservationEntity {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String R_Key;
 	
+	@Column(nullable=false, unique = true)
+	private String receipNo;
+	
 	@Column(nullable=false)
 	@Temporal(TemporalType.TIMESTAMP) //ex) (2023-10-13 10:16:33)
 	private String reservedDate;
+	
+	@Column(nullable=false)
+	private String spaceName;
+	
+	@Column(nullable=false)
+	private String spaceAddress;	
+	
+	@Column(nullable=false)
+	private String borrowUserId;
+	
+	@Column(nullable=false)
+	private String lendUserId;
 	
 	@Column(nullable=false)
 	private String rentStart;
@@ -42,5 +57,6 @@ public class ReservationEntity {
 	
 	private String cancleDate;
 	
+	@Column(nullable=false)
 	private String state;
 }
