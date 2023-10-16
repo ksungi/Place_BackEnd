@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -141,30 +142,32 @@ public class SpaceController {
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
-//	
-//	@DeleteMapping
-//	public ResponseEntity<?> deleteSpace(@AuthenticationPrincipal String userId, @RequestBody SpaceDTO dto){
-//		try {
-//			SpaceEntity entity = SpaceDTO.toEntity(dto);
-//			
-//			// entity userId를 임시로 지정
-//			entity.setUserId(userId);
-//			List<SpaceEntity> entities = service.delete(entity);
-//			
-//			//entities를 dtos로 스트림 변환
-//			List<SpaceDTO> dtos = entities.stream().map(SpaceDTO::new).collect(Collectors.toList());
-//			
-//			//ResponseDTO를 생성
-//			ResponseDTO<SpaceDTO> response = ResponseDTO.<SpaceDTO>builder().data(dtos).build();
-//			
-//			//HTTP Status200 상태로 res 전송
-//			return ResponseEntity.ok().body(response);
-//			
-//		}catch(Exception e) {
-//			String error = e.getMessage();
-//			ResponseDTO<SpaceDTO> response = ResponseDTO.<SpaceDTO>builder().error(error).build();
-//			
-//			return ResponseEntity.badRequest().body(response);
-//		}
-//	}
+	
+	@DeleteMapping
+	public ResponseEntity<?> deleteSpace(
+			//@AuthenticationPrincipal String userId, 
+			@RequestBody SpaceDTO dto){
+		try {
+			SpaceEntity entity = SpaceDTO.toEntity(dto);
+			
+			// entity userId를 임시로 지정
+			entity.setUserName("temporary");
+			List<SpaceEntity> entities = service.delete(entity);
+			
+			//entities를 dtos로 스트림 변환
+			List<SpaceDTO> dtos = entities.stream().map(SpaceDTO::new).collect(Collectors.toList());
+			
+			//ResponseDTO를 생성
+			ResponseDTO<SpaceDTO> response = ResponseDTO.<SpaceDTO>builder().data(dtos).build();
+			
+			//HTTP Status200 상태로 res 전송
+			return ResponseEntity.ok().body(response);
+			
+		}catch(Exception e) {
+			String error = e.getMessage();
+			ResponseDTO<SpaceDTO> response = ResponseDTO.<SpaceDTO>builder().error(error).build();
+			
+			return ResponseEntity.badRequest().body(response);
+		}
+	}
 }

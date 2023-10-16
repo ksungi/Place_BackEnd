@@ -66,15 +66,15 @@ public class SpaceService {
 	}
 
 	
-//	//DELETE
-//	public List<SpaceEntity> delete(final SpaceEntity entity) {
-//		if( repository.existsById( entity.getUserId() ) )
-//			repository.deleteById( entity.getUserId() );
-//		else
-//			throw new RuntimeException("ID does not exist");
-//		
-//		return repository.findByUserId(entity.getUserId());
-//	}
+	//DELETE
+	public List<SpaceEntity> delete(final SpaceEntity entity) {
+		if( repository.existsById( entity.getS_Key() ) )
+			repository.deleteById( entity.getS_Key() );
+		else
+			throw new RuntimeException("Key does not exist");
+		
+		return repository.findByS_Key(entity.getS_Key());
+	}
 	
 	//Validation
 	public void validate(final SpaceEntity entity) {
