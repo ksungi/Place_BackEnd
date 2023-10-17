@@ -34,6 +34,7 @@ public class SpaceDTO {
 	public static SpaceEntity toEntity(final SpaceDTO dto) {
 		return SpaceEntity.builder()
 									.S_Key(dto.getS_Key())
+									.userName(dto.getUserName())
 									.spaceName(dto.getSpaceName())
 									.limitPersonNum(dto.getLimitPersonNum())
 									.area(dto.getArea())

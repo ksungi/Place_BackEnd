@@ -20,12 +20,10 @@ public class SpaceService {
 	
 	//Create
 	public List<SpaceEntity> create(final SpaceEntity entity) {
-	//public Optional<SpaceEntity> create(final SpaceEntity entity){
 		//Validations
 		validate(entity);
 		repository.save(entity);
 		return repository.findByS_Key(entity.getS_Key());
-		//return repository.findById(entity.getUserId());
 	}
 	
 	public List<SpaceEntity> retrieve(final String userName) {
@@ -44,6 +42,8 @@ public class SpaceService {
 		
 		return repository.findByS_Key(entity.getS_Key());
 	}
+	
+	//패싱
 	public List<SpaceEntity> updateTodo(final SpaceEntity entity){
 		//Validations
 		validate(entity);

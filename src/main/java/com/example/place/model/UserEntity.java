@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,19 +18,29 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "T_SPACE")
-public class SpaceEntity {
+@Table(name = "T_USER", 
+		uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
+public class UserEntity {
 	
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	private String S_Key;
+	private String U_Key;
 	
+	@Column(nullable=false)
 	private String userName;
-	private String spaceName;
-	private String limitPersonNum;
-	private String area;
-	private String address;
-	private String equip;
-	//private 
+	
+	@Column(nullable=false)
+	private String phone;
+	
+	@Column(nullable=false)
+	private String email;
+	
+	@Column(nullable=false)
+	private String password;
+	
+	private String companyName;
+	private String companyBossName;
+	private String companyAddress;
+	
 }

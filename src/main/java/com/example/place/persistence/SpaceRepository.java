@@ -16,4 +16,6 @@ public interface SpaceRepository extends JpaRepository<SpaceEntity, String>{
 	List<SpaceEntity> findByS_Key(String S_Key);
 
 	List<SpaceEntity> findByUserName(String userName);
+
+	boolean existsById(String S_Key);
 }

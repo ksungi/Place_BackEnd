@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class SpaceController {
 	
 	@PostMapping
 	public ResponseEntity<?>createSpace(
-			//@AuthenticationPrincipal String userId, 
+			@AuthenticationPrincipal String userName, 
 			@RequestBody SpaceDTO dto){
 		try {
 			log.info(">>createSpace entrance");
@@ -40,13 +41,12 @@ public class SpaceController {
 			SpaceEntity entity = SpaceDTO.toEntity(dto);
 			log.info(">>dto => entity ok!");
 			
-			//entity userId를 임시로 지정
-			//entity.setS_Key(null);
-			entity.setUserName("temporaryID");
+			//entity userId 지정
+			entity.setS_Key(null);
+			entity.setUserName(userName);
 			
 			//service.create를 통해 repository에 entity를 저장한다.
 			List<SpaceEntity> entities = service.create(entity);
-			//Optional<SpaceEntity> entities = service.create(entity);
 			log.info("Log:serivce.create ok!");
 
 			
@@ -70,11 +70,8 @@ public class SpaceController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<?>retrieveSpace(
-			//@AuthenticationPrincipal String userId
-			){
-		String temporaryUserId ="temporaryID";
-		List<SpaceEntity> entities = service.retrieve(temporaryUserId);
+	public ResponseEntity<?>retrieveSpace(@AuthenticationPrincipal String userName){
+		List<SpaceEntity> entities = service.retrieve(userName);
 		List<SpaceDTO> dtos = entities.stream().map(SpaceDTO::new).collect(Collectors.toList());
 		
 		ResponseDTO<SpaceDTO> response = ResponseDTO.<SpaceDTO>builder().data(dtos).build();
@@ -83,6 +80,7 @@ public class SpaceController {
 		return ResponseEntity.ok().body(response);
 	}
 	
+	//넘어감
 	@GetMapping("/update") 
 	public ResponseEntity<?>update(@RequestBody SpaceDTO dto){
 		try {
@@ -115,14 +113,14 @@ public class SpaceController {
 	
 	@PutMapping
 	public ResponseEntity<?> updateSpace(
-			//@AuthenticationPrincipal String userId, 
+			@AuthenticationPrincipal String userName, 
 			@RequestBody SpaceDTO dto){
 		try {
 			//dto를 이용해 테이블에 저장하기 위한 entity를 생성
 			SpaceEntity entity = SpaceDTO.toEntity(dto);
 			
 			//entity userId를 임시로 지정
-			entity.setUserName("temporaryID");
+			entity.setUserName(userName);
 			
 			//service.create를 통해 repository에 entity를 저장
 			List<SpaceEntity> entities = service.update(entity);
@@ -145,13 +143,13 @@ public class SpaceController {
 	
 	@DeleteMapping
 	public ResponseEntity<?> deleteSpace(
-			//@AuthenticationPrincipal String userId, 
+			@AuthenticationPrincipal String userName, 
 			@RequestBody SpaceDTO dto){
 		try {
 			SpaceEntity entity = SpaceDTO.toEntity(dto);
 			
 			// entity userId를 임시로 지정
-			entity.setUserName("temporary");
+			entity.setUserName(userName);
 			List<SpaceEntity> entities = service.delete(entity);
 			
 			//entities를 dtos로 스트림 변환
