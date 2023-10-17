@@ -28,7 +28,7 @@ public class UserController {
 	@Autowired
 	private TokenProvider tokenProvider;
 	
-	//private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?>registerUser(@RequestBody UserDTO dto){
@@ -37,7 +37,7 @@ public class UserController {
 										.userName(dto.getUserName())
 										.phone(dto.getPhone())
 										.email(dto.getEmail())
-										.password(dto.getPassword())
+										.password(passwordEncoder.encode(dto.getPassword()))
 										.companyName(dto.getCompanyName())
 										.companyBossName(dto.getCompanyBossName())
 										.companyAddress(dto.getCompanyAddress())
@@ -64,7 +64,8 @@ public class UserController {
 	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticate(@RequestBody UserDTO dto){
-		UserEntity user = service.getByCredentials(dto.getEmail(), dto.getPassword());
+		UserEntity user = service.getByCredentials(dto.getEmail(), 
+				dto.getPassword(), passwordEncoder);
 		
 		if(user != null) {
 			final String token = tokenProvider.create(user);

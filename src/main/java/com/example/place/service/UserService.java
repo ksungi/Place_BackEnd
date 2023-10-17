@@ -28,17 +28,15 @@ public class UserService {
 		return repository.save(entity);
 	}
 	
-	public UserEntity getByCredentials (final String email, final String password
-			//final String userName, final PasswordEncoder encoder
-			) {
+	public UserEntity getByCredentials (final String email, final String password,
+			final PasswordEncoder encoder) {
 		
-//		final UserEntity originalUser = repository.findByEmail(email);
-//		
-//		if(originalUser != null && encoder.matches(password, originalUser.getPassword())) {
-//			return originalUser;
-//		}
-//		return null;
-		return repository.findByEmailAndPassword(email, password);
+		final UserEntity originalUser = repository.findByEmail(email);
+		
+		if(originalUser != null && encoder.matches(password, originalUser.getPassword())) {
+			return originalUser;
+		}
+		return null;
 	}
 	
 	
