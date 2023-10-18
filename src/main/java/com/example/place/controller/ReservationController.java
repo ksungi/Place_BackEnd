@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.place.dto.ReservationDTO;
 import com.example.place.dto.ResponseDTO;
+import com.example.place.dto.SpaceDTO;
 import com.example.place.model.ReservationEntity;
 import com.example.place.model.SpaceEntity;
 import com.example.place.model.UserEntity;
@@ -66,7 +68,7 @@ public class ReservationController {
 			entity.setSP_Email(SPEnti.getEmail());			
 			
 			//이용자정보
-			UserEntity SUEnti= repository.findBySU_Id(SU_Id);
+			UserEntity SUEnti= repository.findBySP_Id(SU_Id);
 			entity.setSU_Id(SU_Id);
 			entity.setSU_Phone(SUEnti.getPhone());
 			entity.setSU_Email(SUEnti.getEmail());	
@@ -94,5 +96,18 @@ public class ReservationController {
 			return ResponseEntity.badRequest().body(response);
 		}
 	}
+	
+	@GetMapping
+	public ResponseEntity<?>retrieveReservation(@AuthenticationPrincipal String userName){
+		List<ReservationEntity> entities = service.retrieve(userName);
+		List<ReservationDTO> dtos = entities.stream().map(ReservationDTO::new).collect(Collectors.toList());
+		
+		ResponseDTO<ReservationDTO> response = ResponseDTO.<ReservationDTO>builder().data(dtos).build();
+		
+		//HTTP Status200 상태로 res를 전송
+		return ResponseEntity.ok().body(response);
+	}
+	
+	
 
-}
+}//end of func

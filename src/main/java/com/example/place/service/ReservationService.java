@@ -27,6 +27,10 @@ public class ReservationService {
 			return repository.findByR_Key(entity.getR_Key());
 		}
 		
+		public List<ReservationEntity> retrieve(final String userName) {
+			return repository.findBySU_Id(userName);
+		}
+		
 		//UPDATE
 		public List<ReservationEntity> update(final ReservationEntity entity){
 			validate(entity);
