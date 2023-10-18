@@ -34,7 +34,6 @@ public class SpaceService {
 	public List<SpaceEntity> update(final SpaceEntity entity) {
 		//Validations
 		validate(entity);
-				
 		if (repository.existsById(entity.getS_Key())) {
 			repository.save(entity);
 		}else
@@ -43,27 +42,28 @@ public class SpaceService {
 		return repository.findByS_Key(entity.getS_Key());
 	}
 	
-	//패싱
-	public List<SpaceEntity> updateTodo(final SpaceEntity entity){
-		//Validations
-		validate(entity);
-		
-		// 테이블에서 id에 해당하는 데이타셋을 가져온다. 
-		final List<SpaceEntity> original = repository.findByS_Key(entity.getS_Key());
-		
-		// orignal 에 담겨진 내용을 space 에 할당하고 값을 변경한다. 
-		if(!original.isEmpty()) {
-			final SpaceEntity space = original.get(0);
-			space.setSpaceName(entity.getSpaceName());
-			space.setLimitPersonNum(entity.getLimitPersonNum());
-			space.setArea(entity.getArea());
-			space.setAddress(entity.getAddress());
-			space.setEquip(entity.getEquip());
-			repository.save(space);
-		}
-		
-		return repository.findByS_Key(entity.getS_Key());
-	}
+//	//패싱
+//	public List<SpaceEntity> updateTodo(final SpaceEntity entity){
+//		//Validations
+//		validate(entity);
+//		
+//		// 테이블에서 id에 해당하는 데이타셋을 가져온다. 
+//		final List<SpaceEntity> original = repository.findByS_Key(entity.getS_Key());
+//		
+//		// orignal 에 담겨진 내용을 space 에 할당하고 값을 변경한다. 
+//		if(!original.isEmpty()) {
+//			final SpaceEntity space = original.get(0);
+//			space.setSpaceName(entity.getSpaceName());
+//			space.setLimitPersonNum(entity.getLimitPersonNum());
+//			space.setArea(entity.getArea());
+//			space.setAddress(entity.getAddress());
+//			space.setEquip(entity.getEquip());
+//			space.setCategory(entity.getCategory());
+//			repository.save(space);
+//		}
+//		
+//		return repository.findByS_Key(entity.getS_Key());
+//	}
 
 	
 	//DELETE

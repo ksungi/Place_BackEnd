@@ -42,7 +42,7 @@ public class SpaceController {
 			log.info(">>dto => entity ok!");
 			
 			//entity userId 지정
-			entity.setS_Key(null);
+			//entity.setS_Key(null);
 			entity.setUserName(userName);
 			
 			//service.create를 통해 repository에 entity를 저장한다.
@@ -119,7 +119,7 @@ public class SpaceController {
 			//dto를 이용해 테이블에 저장하기 위한 entity를 생성
 			SpaceEntity entity = SpaceDTO.toEntity(dto);
 			
-			//entity userId를 임시로 지정
+			//entity userId를 지정
 			entity.setUserName(userName);
 			
 			//service.create를 통해 repository에 entity를 저장

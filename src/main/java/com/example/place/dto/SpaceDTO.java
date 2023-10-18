@@ -20,6 +20,8 @@ public class SpaceDTO {
 	private String area;
 	private String address;
 	private String equip;
+	private String price;
+	private String category;
 	
 	public SpaceDTO(final SpaceEntity entity) {
 		this.S_Key = entity.getS_Key();
@@ -29,6 +31,8 @@ public class SpaceDTO {
 		this.area = entity.getArea();
 		this.address = entity.getAddress();
 		this.equip = entity.getEquip();
+		this.price = entity.getPrice();
+		this.category = entity.getCategory();
 	}
 	
 	public static SpaceEntity toEntity(final SpaceDTO dto) {
@@ -40,6 +44,8 @@ public class SpaceDTO {
 									.area(dto.getArea())
 									.address(dto.getAddress())
 									.equip(dto.getEquip())
+									.price(dto.getPrice())
+									.category(dto.getCategory())
 									.build();
 	}
 }

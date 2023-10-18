@@ -25,11 +25,27 @@ public class SpaceEntity {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String S_Key;
 	
+	@Column(nullable=false)
 	private String userName;
+	
+	@Column(nullable=false)
 	private String spaceName;
+	
+	@Column(nullable=false)
 	private String limitPersonNum;
+	
+	@Column(nullable=false)
 	private String area;
+	
+	@Column(nullable=false)
 	private String address;
+	
+	@Column(nullable=false)
 	private String equip;
-	//private 
+	
+	@Column(nullable=false)
+	private String price;
+	
+	@Column(nullable=false)
+	private String category;
 }
