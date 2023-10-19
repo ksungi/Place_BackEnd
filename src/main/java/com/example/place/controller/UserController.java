@@ -86,15 +86,15 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/myroom")
-	public void Myroom(@RequestBody UserDTO dto) {
+	@PostMapping("/useredit")
+	public void userEdit(@RequestBody UserDTO dto) {
 		//user 원래 정보 //보내온 Email로 DB내의 정보를 찾으니 Email은 변경불가
-		String before_userset = service.getUserEntity(dto.getEmail().toString()).getU_Key();
-		
+		//String before_userset = service.getUserEntity(dto.getEmail().toString()).getU_Key();
+		UserEntity before_userset = service.getUserEntity(dto.getEmail());
 		//업데이트 정보 & 기존 정보를 담을 임시 개체
 		UserEntity after_userset = UserEntity.builder()
-												.U_Key(before_userset)
-												.email(dto.getEmail())
+												.U_Key(before_userset.getU_Key())
+												.email(before_userset.getEmail())
 												.userName(dto.getUserName())
 												.phone(dto.getPhone())
 												.companyName(dto.getCompanyName())
