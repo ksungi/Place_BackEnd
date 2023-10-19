@@ -40,11 +40,11 @@ public class UserService {
 	}
 	
 	
-//	public UserEntity getUserEntity(final String eamil) {
-//		return repository.findByEmail(eamil);
-//	}
-//	
-//	public void updateUserEntity(final UserEntity userEntity) {
-//		repository.save(userEntity);
-//	}
+	public UserEntity getUserEntity(final String eamil) {
+		return repository.findByEmail(eamil);
+	}
+	
+	public void updateUserEntity(final UserEntity userEntity) {
+		repository.save(userEntity);
+	}
 }

@@ -70,12 +70,9 @@ public class UserController {
 		if(user != null) {
 			final String token = tokenProvider.create(user);
 			final UserDTO responseUserDTO = UserDTO.builder()
-													.userName(dto.getUserName())
-													.phone(dto.getPhone())
 													.email(dto.getEmail())
-													.companyName(dto.getCompanyName())
-													.companyBossName(dto.getCompanyBossName())
-													.companyAddress(dto.getCompanyAddress())
+													.userName(user.getUserName())
+													.companyName(user.getCompanyName())
 													.token(token)
 													.build();
 			
@@ -89,24 +86,24 @@ public class UserController {
 		}
 	}
 	
-//	@PostMapping("/myroom")
-//	public void Myroom(@RequestBody UserDTO dto) {
-//		//user 원래 정보 //보내온 Email로 DB내의 정보를 찾으니 Email은 변경불가
-//		String before_userset = service.getUserEntity(dto.getEmail().toString()).getU_Key();
-//		
-//		//업데이트 정보 & 기존 정보를 담을 임시 개체
-//		UserEntity after_userset = UserEntity.builder()
-//												.U_Key(before_userset)
-//												.email(dto.getEmail())
-//												.userName(dto.getUserName())
-//												.phone(dto.getPhone())
-//												.companyName(dto.getCompanyName())
-//												.companyBossName(dto.getCompanyBossName())
-//												.companyAddress(dto.getCompanyAddress())
-//												.password(passwordEncoder.encode(dto.getPassword()))
-//												.build();
-//		//업데이트
-//		service.updateUserEntity(after_userset);
-//	}
+	@PostMapping("/myroom")
+	public void Myroom(@RequestBody UserDTO dto) {
+		//user 원래 정보 //보내온 Email로 DB내의 정보를 찾으니 Email은 변경불가
+		String before_userset = service.getUserEntity(dto.getEmail().toString()).getU_Key();
+		
+		//업데이트 정보 & 기존 정보를 담을 임시 개체
+		UserEntity after_userset = UserEntity.builder()
+												.U_Key(before_userset)
+												.email(dto.getEmail())
+												.userName(dto.getUserName())
+												.phone(dto.getPhone())
+												.companyName(dto.getCompanyName())
+												.companyBossName(dto.getCompanyBossName())
+												.companyAddress(dto.getCompanyAddress())
+												.password(passwordEncoder.encode(dto.getPassword()))
+												.build();
+		//업데이트
+		service.updateUserEntity(after_userset);
+	}
 
 }
