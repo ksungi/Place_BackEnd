@@ -47,4 +47,8 @@ public class UserService {
 	public void updateUserEntity(final UserEntity userEntity) {
 		repository.save(userEntity);
 	}
+	
+	public void deleteUserEntity(final UserEntity userEntity) {
+		repository.delete(userEntity);
+	}
 }

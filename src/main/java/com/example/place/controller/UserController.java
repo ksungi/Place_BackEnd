@@ -89,7 +89,6 @@ public class UserController {
 	@PostMapping("/useredit")
 	public void userEdit(@RequestBody UserDTO dto) {
 		//user 원래 정보 //보내온 Email로 DB내의 정보를 찾으니 Email은 변경불가
-		//String before_userset = service.getUserEntity(dto.getEmail().toString()).getU_Key();
 		UserEntity before_userset = service.getUserEntity(dto.getEmail());
 		//업데이트 정보 & 기존 정보를 담을 임시 개체
 		UserEntity after_userset = UserEntity.builder()
@@ -105,5 +104,23 @@ public class UserController {
 		//업데이트
 		service.updateUserEntity(after_userset);
 	}
-
+	
+	@PostMapping("/userdelete")
+	public ResponseEntity<?> userDelete(@RequestBody UserDTO dto) {
+		UserEntity user = service.getByCredentials(dto.getEmail(), 
+				dto.getPassword(), passwordEncoder);
+		
+		if(user != null) {
+			UserEntity userset = service.getUserEntity(dto.getEmail());
+			service.deleteUserEntity(userset);
+			return null;
+		}else {
+			ResponseDTO responseDTO = ResponseDTO.builder()
+											.error("Auth failed")
+											.build();
+			
+			return ResponseEntity.badRequest().body(responseDTO);
+		}
+	}
+	
 }
